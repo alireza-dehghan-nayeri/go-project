@@ -12,13 +12,15 @@ import (
 
 // QuoteController -> QuoteController
 type QuoteController struct {
-	service service.QuoteService
+	service      service.QuoteService
+	countService service.CountService
 }
 
 // NewQuoteController : NewQuoteController
-func NewQuoteController(s service.QuoteService) QuoteController {
+func NewQuoteController(s service.QuoteService, countService service.CountService) QuoteController {
 	return QuoteController{
-		service: s,
+		service:      s,
+		countService: countService,
 	}
 }
 
@@ -64,13 +66,25 @@ func (p *QuoteController) AddQuote(ctx *gin.Context) {
 		return
 	}
 
-	err := p.service.Save(quote)
+	count, err := p.countService.Count(quote.Body)
 	if err != nil {
+		util.ErrorJSON(ctx, http.StatusBadRequest, "Failed to count")
+		return
+	}
+
+	quote.CharCount = count
+	response := count
+
+	err1 := p.service.Save(quote)
+	if err1 != nil {
 		util.ErrorJSON(ctx, http.StatusBadRequest, "Failed to create quote")
 		return
 	}
 
-	util.SuccessJSON(ctx, http.StatusCreated, "Successfully Created quote")
+	ctx.JSON(http.StatusOK, &util.Response{
+		Success: true,
+		Message: "Successfully Created quote",
+		Data:    &response})
 }
 
 // GetQuote : get quote by id

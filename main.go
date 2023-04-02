@@ -20,7 +20,8 @@ func main() {
 
 	quoteRepository := repository.NewQuoteRepository(db)
 	quoteService := service.NewQuoteService(quoteRepository)
-	quoteController := controller.NewQuoteController(quoteService)
+	countService := service.NewCountService()
+	quoteController := controller.NewQuoteController(quoteService, countService)
 	quoteRoute := routes.NewQuoteRoute(quoteController, router)
 	quoteRoute.Setup()
 

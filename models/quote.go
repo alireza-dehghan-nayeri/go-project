@@ -9,6 +9,7 @@ type Quote struct {
 	ID        int64     `gorm:"primary_key;auto_increment" json:"id"`
 	Title     string    `gorm:"size:200" json:"title"`
 	Body      string    `gorm:"size:3000" json:"body" `
+	CharCount int       ``
 	CreatedAt time.Time `json:"created_at,omitempty"`
 	UpdatedAt time.Time `json:"updated_at,omitempty"`
 }
@@ -24,6 +25,7 @@ func (quote *Quote) ResponseMap() map[string]interface{} {
 	resp["id"] = quote.ID
 	resp["title"] = quote.Title
 	resp["body"] = quote.Body
+	resp["char_count"] = quote.CharCount
 	resp["created_at"] = quote.CreatedAt
 	resp["updated_at"] = quote.UpdatedAt
 	return resp

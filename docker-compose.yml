@@ -19,3 +19,9 @@ services:
       - db
     links:
       - "db:database"
+  counter:
+    build: /Users/alirezadehghannayeri/Desktop/go-ta/char-counter
+    ports:
+      - "8001:8000"
+    volumes:
+      - "/Users/alirezadehghannayeri/Desktop/go-ta/char-counter:/app"
