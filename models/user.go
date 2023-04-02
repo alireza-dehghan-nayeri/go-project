@@ -4,14 +4,14 @@ import "time"
 
 // User -> User struct to save user on database
 type User struct {
-	ID        int64     `gorm:primary_key;auto_increment;json:id`
+	ID        int64     `gorm:"primary_key;auto_increment" json:"id"`
 	FirstName string    `json:"first_name"`
 	LastName  string    `json:"last_name"`
 	Email     string    `json:"email"`
 	Password  string    `json:"password"`
 	IsActive  bool      `json:"is_active"`
-	CreatedAt time.Time `json:"created_at", omitempty`
-	UpdatedAt time.Time `json:"updated_at", omitempty`
+	CreatedAt time.Time `json:"created_at,omitempty"`
+	UpdatedAt time.Time `json:"updated_at,omitempty"`
 }
 
 // TableName -> returns the table name of User Model
