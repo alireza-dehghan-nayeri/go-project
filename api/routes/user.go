@@ -2,6 +2,7 @@ package routes
 
 import (
 	"github.com/alireza-dehghan-nayeri/go-project/api/controller"
+	"github.com/alireza-dehghan-nayeri/go-project/api/middlewares"
 	"github.com/alireza-dehghan-nayeri/go-project/infrastructure"
 )
 
@@ -26,6 +27,7 @@ func NewUserRoute(
 func (u UserRoute) Setup() {
 	user := u.Handler.Gin.Group("/auth")
 	{
+		user.Use(middlewares.RateLimiterMiddleware())
 		user.POST("/register", u.Controller.CreateUser)
 		user.POST("/login", u.Controller.LoginUser)
 	}

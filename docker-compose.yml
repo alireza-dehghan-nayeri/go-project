@@ -20,8 +20,8 @@ services:
     links:
       - "db:database"
   counter:
-    build: /Users/alirezadehghannayeri/Desktop/go-ta/char-counter
+    build: /Users/alirezadehghannayeri/Desktop/University/9th semester/TA Cloud/go-ta/char-counter
     ports:
       - "8001:8000"
     volumes:
-      - "/Users/alirezadehghannayeri/Desktop/go-ta/char-counter:/app"
+      - "/Users/alirezadehghannayeri/Desktop/University/9th semester/TA Cloud/go-ta/char-counter:/app"
